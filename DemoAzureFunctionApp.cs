@@ -77,7 +77,7 @@ namespace ServerlessAppWithDocker
         }
 
         [FunctionName("Delete")]
-        public async static Task<IActionResult> Delete(
+        public static IActionResult Delete(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "products/delete/{id}")] HttpRequest req,
             ILogger log,
             long id)
