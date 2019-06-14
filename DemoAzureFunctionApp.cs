@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace ServerlessAppWithDocker
 {
-    public static class PrintAnEncouragingMessage
+    public static class DemoAzureFunctionApp
     {
         // Static list to simulate a DB for demo purposes
         static List<Product> products = new List<Product>();
