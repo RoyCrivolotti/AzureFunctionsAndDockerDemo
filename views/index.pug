@@ -2,7 +2,6 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
   
   section
     if products !== null && products !== undefined
@@ -10,14 +9,15 @@ block content
         hr
         tbody
           each product in products
-            div
-              tr
-                form(action='http://localhost:3000/updateProduct' method='POST')
-                  label(for='deleteproduct')
-                  input(type='text' value=product.productName name='ProductName' id='deleteproduct')
-                  input(type='hidden' value=product.productId name='ProductId')
-                  button(type='submit' value='Submit' formaction='http://localhost:3000/updateProduct') Update
-                  button(type='submit' value='Submit' formaction='http://localhost:3000/deleteProduct') Delete
+            if product.productName !== null && product.productId !== null
+              div
+                tr
+                  form(action='http://localhost:3000/updateProduct' method='POST')
+                    label(for='deleteproduct')
+                    input(type='text' value=product.productName name='ProductName' id='deleteproduct')
+                    input(type='hidden' value=product.productId name='ProductId')
+                    button(type='submit' value='Submit' formaction='http://localhost:3000/updateProduct') Update
+                    button(type='submit' value='Submit' formaction='http://localhost:3000/deleteProduct') Delete
 
   hr
 
