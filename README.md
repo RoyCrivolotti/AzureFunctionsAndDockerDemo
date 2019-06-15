@@ -19,3 +19,7 @@ docker run -p 3000:3000 roycrivolotti/apptoconsumeazurefunctionsincontainer
 Accessed with **`localhost:3000`**
 
 **Important**: to run this, you need to create a **`.env`** file and in it create an **`IP`** environmental variable with your IP private IP address (`192.168.x.xx`).
+
+**ALSO**: you can just pull the images from Docker Hub:
+- App that consumes the Azure Function App: `docker pull roycrivolotti/apptoconsumeazurefunctionsincontainer`
+- Azure Function App `docker pull roycrivolotti/azurefunctionapp-docker-demo`
