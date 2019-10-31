@@ -24,4 +24,4 @@ Accessed with **`localhost:3000`**
 - App that consumes the Azure Function App: `docker pull roycrivolotti/apptoconsumeazurefunctionsincontainer`
 - Azure Function App `docker pull roycrivolotti/azurefunctionapp-docker-demo`
 
-**Finally**: note that the images used run comands assuming you are using a Linux VM. For Windows VM you'd have to make some modifications: for example, the paths would have to be aboslute, starting always from the C:/ position.
+**Finally**: note that the images used run comands assuming you are using a Linux VM. For Windows VM you'd have to make some modifications: for example, the paths would have to be aboslute, starting always from the C:\ position.
