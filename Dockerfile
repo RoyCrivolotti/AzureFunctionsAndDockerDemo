@@ -1,5 +1,7 @@
 FROM microsoft/dotnet:2.2-sdk AS installer-env
 
+LABEL MAINTEINER="Roy Crivolotti"
+
 COPY . /src/dotnet-function-app
 RUN cd /src/dotnet-function-app && \
     mkdir -p /home/site/wwwroot && \
