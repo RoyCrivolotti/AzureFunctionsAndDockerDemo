@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable max-len */
 const axios = require('../node_modules/axios');
 require('../node_modules/dotenv').config();
 
