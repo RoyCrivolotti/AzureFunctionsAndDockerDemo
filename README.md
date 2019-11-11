@@ -2,23 +2,27 @@
 
 App that consumes this: [this GitHub repo](https://github.com/RoyCrivolotti/AppToConsumeAzureFunctionsInContainerDemo)
 
-To build and run this I run:
+First we create the network
 
 ```
     docker network create --driver bridge isolated_nw
 ```
+
+Then we build and run the Azure Function App
 
 ```
     docker build -t roycrivolotti/azurefunctionapp-docker-demo .
     docker run --network=isolated_nw --name serverlessapp roycrivolotti/azurefunctionapp-docker-demo
 ```
 
-The App that consumes this API written with Azure Functions was run with:
+Finally, we run the container which has the app that consumes this API:
+
 ```
     docker build -t roycrivolotti/apptoconsumeazurefunctionsincontainer .
     docker run --network=isolated_nw --name apptoconsume -p 3000:3000 roycrivolotti/apptoconsumeazurefunctionsincontainer
 ```
-Accessed with **`localhost:3000`**: in the Dockerfile you can see that the `port 3000` is exposed so that one can access the application from the host machine.
+
+We access the application with **`localhost:3000`**: in the Dockerfile you can see that the `port 3000` is exposed so that one can access the application from the host machine.
 
 **Important**: you can just pull the images from Docker Hub:
 - App that consumes the Azure Function App: `docker pull roycrivolotti/apptoconsumeazurefunctionsincontainer`
