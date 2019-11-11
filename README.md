@@ -2,19 +2,22 @@
 
 Azure Function App to consume: [this GitHub repo](https://github.com/RoyCrivolotti/ServerlessAppWithDocker)
 
-To build and run this I run:
+First we create the network
 
 ```
     docker network create --driver bridge isolated_nw
 ```
 
+Then we build and run the container where we've got our Node application
+
 ```
     docker build -t roycrivolotti/apptoconsumeazurefunctionsincontainer .
     docker run --network=isolated_nw --name apptoconsume -p 3000:3000 roycrivolotti/apptoconsumeazurefunctionsincontainer
 ```
-Accessed with **`localhost:3000`**: in the Dockerfile you can see that the `port 3000` is exposed so that one can access the application from the host machine.
 
-The Node app in the container started above consumes an Azure Function app as an API -this API is meant to be running in another container:
+Which is then accessed with **`localhost:3000`**: in the Dockerfile you can see that the `port 3000` is exposed so that one can access the application from the host machine.
+
+Finally, the Node app in the container started above consumes an Azure Function app as an API -this API is meant to be running in another container:
 ```
     docker build -t roycrivolotti/azurefunctionapp-docker-demo .
     docker run --network=isolated_nw --name serverlessapp roycrivolotti/azurefunctionapp-docker-demo
