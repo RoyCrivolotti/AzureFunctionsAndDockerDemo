@@ -26,7 +26,7 @@ Then we build and run the Azure Function App
 Finally, we build and run the container which has the Node app that consumes the Azure Functions app:
 
 ```
-    docker build -t roycrivolotti/nodeapp .
+    docker build -t roycrivolotti/nodeapp ./NodeApp
     docker run --network=docker-demo-nw --name apptoconsume -p 3000:3000 roycrivolotti/nodeapp
 ```
 
