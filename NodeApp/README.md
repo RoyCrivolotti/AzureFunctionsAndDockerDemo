@@ -1,33 +1,7 @@
-# AppToConsumeAzureFunctionsInContainerDemo
+# Node demo app
 
-Azure Function App to consume: [this GitHub repo](https://github.com/RoyCrivolotti/ServerlessAppWithDocker)
+Very basic front-end using pug. The Node app being created and run here is very basic. I did try to be organized though, separating the views, routes and controllers into their own files and directories.
 
-First we create the network
+The Azure Functions app is referenced by its container name, so as to avoid dealing with IPs. This works because both containers are placed in the same user-defined Bridge network.
 
-```
-    docker network create --driver bridge isolated_nw
-```
-
-Then we build and run the container where we've got our Node application
-
-```
-    docker build -t roycrivolotti/apptoconsumeazurefunctionsincontainer .
-    docker run --network=isolated_nw --name apptoconsume -p 3000:3000 roycrivolotti/apptoconsumeazurefunctionsincontainer
-```
-
-Which is then accessed with **`localhost:3000`**: in the Dockerfile you can see that the `port 3000` is exposed so that one can access the application from the host machine.
-
-Finally, the Node app in the container started above consumes an Azure Function app as an API -this API is meant to be running in another container:
-```
-    docker build -t roycrivolotti/azurefunctionapp-docker-demo .
-    docker run --network=isolated_nw --name serverlessapp roycrivolotti/azurefunctionapp-docker-demo
-```
-
-**Important**: you can just pull the images from Docker Hub:
-- App that consumes the Azure Function App: `docker pull roycrivolotti/apptoconsumeazurefunctionsincontainer`
-- Azure Function App `docker pull roycrivolotti/azurefunctionapp-docker-demo`
-
-**Finally**
-
-Note that the images used here were tried only on two environments: a machine running OS X, first, and on a VirtualBox VM running Debian on a Windows laptop. If you use this on a different environment, such as non-Linux containers, some things might work differently -I never used Windows containers, so I don't really know much about it.
->>>>>>> AppToConsumeAzureFunctionsInContainer/master
+At the same time, we can access the Node app from the host machine because in the Dockerfile we expose `port 3000`.
