@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# AzureFunctionsAndDockerDemo
-=======
 # AppToConsumeAzureFunctionsInContainerDemo
 
 Azure Function App to consume: [this GitHub repo](https://github.com/RoyCrivolotti/ServerlessAppWithDocker)
