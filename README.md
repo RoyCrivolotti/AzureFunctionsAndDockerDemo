@@ -34,6 +34,9 @@ We access the application with **`localhost:3000`**: in the Node app's Dockerfil
 
 ## With Docker Compose
 
+The following should be enough: `docker-compose up`
+Since I use a static list and there is no persistence method, if you `stop` a container and `start` it again, the data you added or modified won't be there anymore; instead, the list will be the same as it was initially.
+
 **Important**
 
 Note that the images used here were tried only on two environments: a machine running OS X, first, and on a VirtualBox VM running Debian on a Windows laptop. If you use this on a different environment, such as non-Linux containers, some things might work differently -I never used Windows containers, so I don't really know much about them.
