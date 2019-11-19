@@ -27,7 +27,7 @@ Finally, we build and run the container which has the Node app that consumes the
 
 ```
     docker build -t roycrivolotti/nodeapp ./NodeApp
-    docker run --network=docker-demo-nw --name apptoconsume -p 3000:3000 roycrivolotti/nodeapp
+    docker run --network=docker-demo-nw --name nodeapp -p 3000:3000 roycrivolotti/nodeapp
 ```
 
 We access the application with **`localhost:3000`**: in the Node app's Dockerfile you can see that the `port 3000` is exposed so that one can access the application from the host machine.

@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-const debug = require('debug')('BasicAppToConsumeAzureFunctionsInContainer:server');
+const debug = require('debug')('NodeApp:server');
 const http = require('http');
 const app = require('../app');
 

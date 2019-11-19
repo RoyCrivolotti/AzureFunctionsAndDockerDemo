@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nodeapp:
+    build:
+      context: ./NodeApp
+      dockerfile: Dockerfile
+    container_name: nodeapp
+    networks:
+      - docker-demo-nw
+    ports:
+      - "3000:3000"
+  azurefuncapp:
+    build:
+      context: ./AzureFunctionsApp
+      dockerfile: Dockerfile
+    container_name: serverlessapp
+    networks:
+      - docker-demo-nw
+networks:
+  docker-demo-nw:
+    driver: bridge
