@@ -34,10 +34,6 @@ We access the application with **`localhost:3000`**: in the Node app's Dockerfil
 
 ## With Docker Compose
 
-**Important**: you can just pull the images from Docker Hub:
-- App that consumes the Azure Function App: `docker pull roycrivolotti/nodeapp`
-- Azure Function App `docker pull roycrivolotti/azurefunctionsapp-docker-demo`
-
-**Finally**
+**Important**
 
 Note that the images used here were tried only on two environments: a machine running OS X, first, and on a VirtualBox VM running Debian on a Windows laptop. If you use this on a different environment, such as non-Linux containers, some things might work differently -I never used Windows containers, so I don't really know much about them.
