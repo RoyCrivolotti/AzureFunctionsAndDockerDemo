@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp-dep
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodeapp-label
+  template:
+    metadata:
+      labels:
+        app: nodeapp-label
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      imagePullSecrets:
+        - name: auth
+      containers:
+        - name: nodeapp-container
+          image: "{{ACR}}.azurect.io/nodeapp:latest"
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp
+spec:
+  type: LoadBalancer
+  selector:
+    app: nodeapp-label
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: nodeapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azurefunc-dep
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: azurefunc-app-label
+  template:
+    metadata:
+      labels:
+        app: azurefunc-app-label
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      imagePullSecrets:
+        - name: auth
+      containers:
+        - name: azurefunc-app-container
+          image: "{{ACR}}.azurect.io/azurefunctionsapp:latest"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serverlessapp
+spec:
+  type: ClusterIP
+  selector:
+    app: azurefunc-app-label
+  ports:
+    - port: 9042
+      targetPort: 80
+      name: serverlessapp
