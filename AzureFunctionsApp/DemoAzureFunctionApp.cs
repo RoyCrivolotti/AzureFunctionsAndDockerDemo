@@ -47,18 +47,19 @@ namespace ServerlessAppWithDocker
             ILogger log)
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var productName = JsonConvert.DeserializeAnonymousType(requestBody, new { productName =  "" }).productName;
+            var productName = JsonConvert.DeserializeAnonymousType(requestBody, new { productName = "" }).productName;
 
-            var product = new Product {
-                ProductName = productName.ToString(), 
+            var product = new Product
+            {
+                ProductName = productName.ToString(),
                 ProductId = products.Max(prod => prod.ProductId + 1)
             };
 
             products.Add(product);
-            
+
             return new OkObjectResult(products);
         }
-        
+
         [FunctionName("Update")]
         public async static Task<IActionResult> Update(
             [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "products/update/{id}")] HttpRequest req,
@@ -66,13 +67,13 @@ namespace ServerlessAppWithDocker
             long id)
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var productName = JsonConvert.DeserializeAnonymousType(requestBody, new { productName =  "" }).productName;
-            
+            var productName = JsonConvert.DeserializeAnonymousType(requestBody, new { productName = "" }).productName;
+
             var product = products.FirstOrDefault(prod => prod.ProductId == id);
             if (product == null) return new NotFoundResult();
 
             product.ProductName = productName;
-            
+
             return new OkObjectResult(products);
         }
 
@@ -86,12 +87,13 @@ namespace ServerlessAppWithDocker
 
             if (product == null) return new NotFoundResult();
             else products.Remove(product);
-            
+
             return new OkObjectResult(products);
         }
     }
 
-    public class Product {
+    public class Product
+    {
         public long ProductId { get; set; }
         public string ProductName { get; set; }
     }
