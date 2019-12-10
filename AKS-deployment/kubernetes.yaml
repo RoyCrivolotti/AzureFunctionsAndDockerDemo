@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nodeapp-dep
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: nodeapp-label
@@ -40,7 +40,7 @@ kind: Deployment
 metadata:
   name: azurefunc-dep
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: azurefunc-app-label
