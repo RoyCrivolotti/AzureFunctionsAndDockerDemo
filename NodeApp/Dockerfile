@@ -6,11 +6,11 @@ ENV PORT=3000
 
 WORKDIR /usr/src/app
 
+RUN apt-get update && apt-get install curl -y
+
 COPY package*.json ./
 
 RUN npm install
-RUN apt-get update
-RUN apt-get install curl -y
 
 COPY . .
 
