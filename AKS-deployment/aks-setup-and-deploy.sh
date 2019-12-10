@@ -1,5 +1,5 @@
 #!/bin/bash
-. aks_info.sh
+. aks-envs.sh
 . credentials.sh
 
 # Install necessary commands for Azure and Kubernetes (run as root):
