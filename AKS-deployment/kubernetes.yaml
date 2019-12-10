@@ -18,7 +18,7 @@ spec:
         - name: auth
       containers:
         - name: nodeapp-container
-          image: "{{ACR}}.azurect.io/nodeapp:latest"
+          image: "{{ACR}}.azurecr.io/nodeapp:latest"
           ports:
             - containerPort: 3000
 ---
@@ -55,7 +55,7 @@ spec:
         - name: auth
       containers:
         - name: azurefunc-app-container
-          image: "{{ACR}}.azurect.io/azurefunctionsapp:latest"
+          image: "{{ACR}}.azurecr.io/azurefunctionsapp:latest"
           ports:
             - containerPort: 80
 ---
@@ -68,6 +68,6 @@ spec:
   selector:
     app: azurefunc-app-label
   ports:
-    - port: 9042
+    - port: 80
       targetPort: 80
       name: serverlessapp
