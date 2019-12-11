@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: servicemonitor
+  namespace: monitoring
+  labels:
+    app: servicemonitor-label
+    prometheus: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: servicemonitor-label
+      demo: demo-label
+  # jobLabel: app
+  # namespaceSelector:
+  #   matchNames:
+  #     - default
+  #       monitoring
+  endpoints:
+    - port: web
