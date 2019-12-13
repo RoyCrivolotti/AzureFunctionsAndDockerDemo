@@ -28,7 +28,10 @@ az acr login --name $AZURE_CONTAINER_REGISTRY
 LOGIN_SERVER=`az acr show --name $AZURE_CONTAINER_REGISTRY --query loginServer --output tsv`
 
 # Create Kubernetes cluster with the principal account (need to have manually included the principal_credentials.sh file)
-az aks create --resource-group "$GROUP_NAME" --name "$KUB_CLUSTER_NAME" --node-count 2 --service-principal "$SERVICE_PRINCIPAL_ID" --client-secret "$SERVICE_PRINCIPAL_PASSWORD" --node-vm-size Standard_B2s -l $WORLD_REGION --generate-ssh-keys --kubernetes-version 1.13.12
+az aks create --resource-group "$GROUP_NAME" --name "$KUB_CLUSTER_NAME" --node-count 2 \
+    --enable-addons monitoring \
+    --service-principal "$SERVICE_PRINCIPAL_ID" --client-secret "$SERVICE_PRINCIPAL_PASSWORD" \
+    --node-vm-size Standard_B2s -l $WORLD_REGION --generate-ssh-keys --kubernetes-version 1.13.12
 
 # Login to AKS cluster to configure kubectl to connect to the cluster
 az aks get-credentials --resource-group $GROUP_NAME --name $KUB_CLUSTER_NAME
@@ -45,7 +48,9 @@ docker push $LOGIN_SERVER/azurefunctionsapp:latest
 docker push $LOGIN_SERVER/nodeapp:latest
 
 # Deploy application
-cat "kubernetes.yaml" | sed "s/{{ACR}}/$AZURE_CONTAINER_REGISTRY/g" | kubectl apply -f -
+cat "kubernetes.yml" | sed "s/{{ACR}}/$AZURE_CONTAINER_REGISTRY/g" | kubectl apply -f -
+
+bash ./aks-deploy-prom-and-graf.sh
 
 # Monitor progress and obtain EXTERNAL-IP once it is ready
 watch kubectl get service nodeapp

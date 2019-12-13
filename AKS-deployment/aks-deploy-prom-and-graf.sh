@@ -4,6 +4,9 @@ if ! [ -x "$(command -v helm)" ]; then
     echo "Helm is not installed and for some reason couldn't be installed, please check the logs for the specific error and try to install it manually" && exit 1
 fi
 
+# Create Tiller Service Account and Apply ClusterRoleBinding
+kubectl apply -f prom-rbactillerconfig.yml
+
 # Add the Core OS Helm Repo in case it is not already installed
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
 
@@ -17,6 +20,15 @@ kubectl -n monitoring get all -l "release=prometheus-operator"
 # Install Prometheus Configuration and Setup for Kubernetes
 helm install kube-prometheus coreos/kube-prometheus --namespace monitoring
 kubectl -n monitoring get all -l "release=kube-prometheus"
+
+# Update Container Image in Deployment manifest (prom-graf-sample-go-app.yml)
+kubectl apply -f prom-graf-sample-go-app.yml -n sample-app
+
+# Deploy the ServiceMonitor to Monitor the app
+kubectl apply -f prom-graf-servicemonitor.yml -n monitoring
+
+# Deploy the ConfigMap to Raise Alerts for the app
+kubectl apply -f prom-graf-configmap.yml -n monitoring
 
 # Check to see that all the Pods are running
 kubectl get pods -n monitoring
