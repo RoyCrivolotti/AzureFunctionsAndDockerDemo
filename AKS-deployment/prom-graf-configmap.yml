@@ -1,0 +1,21 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo-rules
+  labels:
+    prometheus: kube-prometheus
+    role: alert-rules
+  namespace: monitoring
+data:
+  exampleapp.rules: |-
+    groups:
+    - name: demo.rules
+      rules:
+      - alert: ExampleAppDeploymentLowReplicaCount
+        expr: kube_deployment_status_replicas{deployment="nodeapp"} < 1
+        for: 30s
+        labels:
+          severity: "critical"
+        annotations:
+          description: "The demo app has no replica."
+          summary: "App not functional"
