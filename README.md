@@ -2,7 +2,7 @@
 
 In this repo there are two demo applications: An Azure Functions app, and a Node app which consumes the former. The Azure Functions app has a static list which simulates a DB; when the Node app consumes its endpoints, it gets data as a response...
 
-When I wrote this I was just trying to learn what Docker was and how to start using it, so this small demo was enough as a first demo. It was also my first time using Azure Functions..
+When I wrote this I was just trying to learn what Docker was and how to start using it, so this small demo was enough. It was also my first time using Azure Functions..
 
 ## How to use this?
 
